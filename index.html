@@ -1,0 +1,1023 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <script src="script.js" defer></script> -->
+
+    <style>
+        .product_container_left {
+    margin-top: 60px;
+    overflow-x: hidden !important;
+}
+
+figure.zoom {
+    background-position: 50% 50%;
+    position: relative;
+    overflow: hidden;
+    cursor: zoom-in;
+    border-radius: 8px;
+}
+
+figure.zoom img:hover {
+    opacity: 0;
+}
+
+figure.zoom img {
+    transition: opacity .5s;
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.product_container_left .heading {
+    text-align: center !important;
+}
+
+.product_container_left .heading .title {
+    color: #08708A !important;
+    font-size: 36px !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 500 !important;
+}
+
+.product_container_left .heading .desc {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    line-height: 30px !important;
+    color: #000000;
+}
+
+
+
+.product_container_right {
+    overflow-x: hidden !important;
+}
+
+
+.product_container_right .main h2 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 20px !important;
+    line-height: 30px !important;
+    margin-top: 20px;
+    color: #08708A !important;
+}
+
+.product_container_right .main select {
+    border: 1px solid #08708A !important;
+    color: #08708A !important;
+    outline-style: none;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.product_container_right .main .addonsDiv>h2 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    line-height: 30px !important;
+    margin-top: 20px;
+    color: #08708A !important;
+}
+
+.product_container_right .main .addonsDiv label {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    width: 100%;
+    cursor: pointer;
+    color: #08708A !important;
+
+}
+
+.product_container_right .main .addonsDiv label span {
+    float: right;
+}
+
+.product_container_right .main .addonsDiv label input {
+    border: 1px solid #08708A !important;
+    cursor: pointer !important;
+
+}
+
+.product_container_right .productSummery .prices>h3 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    color: #08708A !important;
+}
+
+.product_container_right .productSummery .prices>P {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    color: #08708A !important;
+}
+
+.product_container_right .productSummery .details {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+
+}
+
+.product_container_right .productSummery .details>label {
+    color: #08708A !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+}
+
+.product_container_right .productSummery .details>textarea {
+    border: 1px solid #08708A;
+    resize: none;
+    outline-style: none;
+    border-radius: 5px;
+    color: gray !important;
+    height: 160px !important;
+    padding: 5px;
+}
+
+
+.product_container_right .addToCart {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px;
+}
+
+.product_container_right .addToCart>button {
+    letter-spacing: 1px!important;
+    border-radius: 6px !important;
+    background-color: #FDAE84 !important;
+    color: white;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+}
+
+.product_container_right .addToCart>input {
+    width: 35px !important;
+    height: 35px !important;
+    outline-style: none;
+    border: 2px solid #FDAE84 !important;
+    border-radius: 6px !important;
+}
+
+
+
+
+/* Add this CSS to hide the modal by default */
+.modal {
+    display: none;
+    /* Hide the modal by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Semi-transparent background */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.close:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Add this CSS to center the modal vertically and horizontally */
+@media screen and (max-height: 700px) {
+    .modal-content {
+        margin: 20% auto;
+    }
+}
+
+
+
+/* Custom Chechout CSS */
+
+.customCheckout h1 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 36px !important;
+    color: #08708A !important;
+    margin-bottom: 25px;
+}
+
+
+.customCheckout label {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    color: #08708A !important;
+}
+
+.customCheckout input,
+.customCheckout select,
+.customCheckout textarea {
+    border: 1px solid #08708A !important;
+    outline-style: none !important;
+    padding: 10px !important;
+    color: #888 !important;
+    margin-bottom: 20px !important;
+}
+
+.customCheckout label>span {
+    color: rgb(233, 17, 17) !important;
+}
+
+.customCheckout div>span {
+    color: #08708A !important;
+}
+
+.customCheckout div>h5 {
+    margin-bottom: 20px !important;
+}
+
+
+.yourOrder table {
+    border-color: #08708A;
+    color: #08708A;
+    font-family: 'Poppins', sans-serif;
+}
+.proceedToCheckout{
+    border-radius: 6px !important;
+    background-color: #FDAE84 !important;
+    color: white;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px!important;
+}
+
+.proceedToCheckout:hover{
+    color: white!important;
+}
+@media screen and (max-width : 768px) {
+    .product_container_left {
+        margin-bottom: 20px !important;
+        margin-top: 0px !important;
+    }
+
+    .product_container_left .heading>.title {
+        font-size: 28px !important;
+    }
+
+    .customCheckout h1 {
+        font-size: 28px !important;
+    }
+
+    .product_container_left .heading>.desc {
+        font-size: 16px !important;
+    }
+
+    .product_container_right .main h2 {
+        font-size: 16px !important;
+    }
+
+    .product_container_right .main .addonsDiv>h2 {
+        font-size: 16px !important;
+    }
+
+    .product_container_right .main .addonsDiv label {
+        font-size: 14px !important;
+    }
+
+    .customCheckout label {
+        font-size: 14px !important;
+    }
+
+    .product_container_right .productSummery .prices>h3 {
+        font-size: 14px !important;
+    }
+
+    .product_container_right .productSummery .prices>P {
+        font-size: 14px !important;
+    }
+}
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="container my-5">
+        <div class="row"  id="container1">
+            <!-- left  -->
+            <div class="col-md-4 product_container_left">
+                <div class="productImage">
+                    <figure class="zoom" onmousemove="zoom(event)"
+                        style="background-image: url(https://l2t2obur6g-staging.wpdns.site/wp-content/uploads/2021/07/ReFreshMeCombo.png);">
+                        <img src="https://l2t2obur6g-staging.wpdns.site/wp-content/uploads/2021/07/ReFreshMeCombo.png">
+                    </figure>
+                </div>
+                <div>
+                </div>
+                <div class="heading">
+                    <h2 class="title">REFRESHME COMBO</h2>
+                    <p class="desc">
+                        Get refreshed and ready for your day with the help of the natural ingredients in
+                        each part of the ReFreshMe Combo.
+                    </p>
+                </div>
+            </div>
+
+            <!-- right  -->
+            <div class="col-md-8 product_container_right mt-4">
+                <form>
+                <div class="main">
+
+                    <div class="refreshMeDiv">
+                        <h2>ReFreshMe</h2>
+                        <select name="refreshMe" id="refreshMe" class="w-100 py-2" required>
+                            <option value="">Choose an option</option> <!-- Default placeholder -->
+                            <option value="Air Force One">Air Force One</option>
+                            <option value="Bay Watch">Bay Watch</option>
+                            <option value="Bikini Bottom">Bikini Bottom</option>
+                            <option value="Flawless">Flawless</option>
+                            <option value="Hang 10">Hang 10</option>
+                            <option value="Lost in the Rip">Lost in the Rip</option>
+                            <option value="PCH">PCH</option>
+                            <option value="Pink Dragon">Pink Dragon</option>
+                            <option value="Summer Daze">Summer Daze</option>
+                            <option value="Victory">Victory</option>
+                        </select>
+
+                        <div class="aloeShortDiv">
+                            <h2>Aloe Shot</h2>
+                            <select name="aloeShot" id="aloeShot" class="w-100 py-2" required>
+                                <option value="">Choose an option</option> <!-- Default placeholder -->
+                                <option value="Cranberry">Cranberyy</option>
+                                <option value="Mandarin Orange">Mandarin Orange</option>
+                                <option value="Mango">Mango</option>
+                            </select>
+
+                        </div>
+                        <div class="energyTeaDiv">
+                            <h2>Energy Tea</h2>
+                            <select name="energyTea" id="energyTea" class="w-100 py-2" required>
+                                <option value="">Choose an option</option> <!-- Default placeholder -->
+                                <option value="Chai">Chai</option>
+                                <option value="Cinnamon">Cinnamon</option>
+                                <option value="Lemon">Lemon</option>
+                                <option value="Original">Original</option>
+                                <option value="Peach">Peach</option>
+                                <option value="Raspberry">Raspberry</option>
+                            </select>
+                        </div>
+                        <div class="tempratureDiv">
+                            <h2>Do You Want Your Tea Hot or Cold?</h2>
+                            <select name="teaTemperature" id="teaTemperature" class="w-100 py-2" required>
+                                <option value="">Choose an option</option> <!-- Default placeholder -->
+                                <option value="hot">Hot</option>
+                                <option value="Cold">Cold</option>
+                            </select>
+                        </div>
+                        <div class="milkShakeDiv">
+                            <h2>Healthy Meal Shake</h2>
+                            <select name="mealShake" id="mealShake" class="w-100 py-2" required>
+                                <option value="">Choose an option</option> <!-- Default placeholder -->
+                                <option value="Almond Joy">Almond Joy</option>
+                                <option value="Banana Berry">Banana Berry</option>
+                                <option value="Banana Bread">Banana Bread</option>
+                                <option value="Banana Caramel">Banana Caramel</option>
+                                <option value="Bicycle Jim">Bicycle Jim</option>
+                                <option value="Blonde Batter">Blonde Batter</option>
+                                <option value="Blueberry Muffin">Blueberry Muffin</option>
+                                <option value="Caramelized Banana French Toast">Caramelized Banana
+                                    French Toast</option>
+                                <option value="Chocolate Caramel Banana">Chocolate Caramel Banana</option>
+                                <option value="Chocolate Mocha Icebox Cake">Chocolate Mocha Icebox Cake
+                                </option>
+                                <option value="Chocolate Peanut Butter Banana">Chocolate Peanut Butter
+                                    Banana</option>
+                                <option value="Cinnamon Toast Crunch">Cinnamon Toast Crunch</option>
+                                <option value="Coconut Macaroon">Coconut Macaroon</option>
+                                <option value="Coffee Ice Cream">Coffee Ice Cream</option>
+                                <option value="Cookie Dough Ice Cream">Cookie Dough Ice Cream</option>
+                                <option value="Cookies &amp; Cream">Cookies &amp; Cream</option>
+                                <option value="Dulce de Leche">Dulce de Leche</option>
+                                <option value="Dutch Choclate">Dutch Choclate</option>
+                                <option value="Elvis">Elvis</option>
+                                <option value="French Vanilla">French Vanilla</option>
+                                <option value="Fried Ice Cream">Fried Ice Cream</option>
+                                <option value="Funfetti">Funfetti</option>
+                                <option value="Hazelnut Praline Latte">Hazelnut Praline Latte</option>
+                                <option value="Lemon Pound Cake">Lemon Pound Cake</option>
+                                <option value="Mango Pineapple">Mango Pineapple</option>
+                                <option value="Maple Pecan Toffee">Maple Pecan Toffee</option>
+                                <option value="Mint Chip">Mint Chip</option>
+                                <option value="Nutter Butter">Nutter Butter</option>
+                                <option value="Orange Cream">Orange Cream</option>
+                                <option value="Oreo Cheesecake">Oreo Cheesecake</option>
+                                <option value="Oreo Fudge Browine">Oreo Fudge Browine</option>
+                                <option value="Peanut Butter Cheesecake">Peanut Butter Cheesecake
+                                </option>
+                                <option value="Peanut Butter Cup">Peanut Butter Cup</option>
+                                <option value="Peanut Butter Praline Crunch">Peanut Butter Praline
+                                    Crunch</option>
+                                <option value="Pina Colada">Pina Colada</option>
+                                <option value="Pralines &amp; Cream">Pralines &amp; Cream</option>
+                                <option value="Raspberry Lemon Crumble">Raspberry Lemon Crumble</option>
+                                <option value="Reese'e">Reese'e</option>
+                                <option value="Salted Caramel Cheesecake">Salted Caramel
+                                    Cheesecake</option>
+                                <option value="Salted Caramel Pretzel">Salted Caramel Pretzel
+                                </option>
+                                <option value="Snickers">Snickers</option>
+                                <option value="Strawberry Cheesecake">Strawberry Cheesecake</option>
+                                <option value="Thin Mint Cookie">Thin Mint Cookie</option>
+                                <option value="Turtle Sundae">Turtle Sundae</option>
+                                <option value="Wedding Cake">Wedding Cake</option>
+                                <option value="Wild Berry">Wild Berry</option>
+                            </select>
+                        </div>
+                        <div class="proteinDiv">
+                            <h2>Want to Up Your Protein?</h2>
+                            <select name="protein" id="protein" class="w-100 py-2" required>
+                                <option value="">Choose an option</option> <!-- Default placeholder -->
+                                <option value="No Thanks">No Thanks</option>
+                                <option value="Yes ($1.50)">Yes ($1.50)</option>
+                            </select>
+                        </div>
+                        <div class="addonsDiv mt-4">
+                            <h2>Add-ons</h2>
+                            <label><input type="checkbox" name="Best Defense" class="addon mb-3" data-price="2.75"> Best
+                                Defense <span>$2.75</span></label><br>
+                            <label><input type="checkbox" name="Collagen" class="addon mb-3" data-price="3.25"> Collagen
+                                <span>$3.25</span></label><br>
+                            <label><input type="checkbox" name="Fat Fighter" class="addon mb-3" data-price="5.00"> Fat
+                                Fighter <span>$5.00</span></label><br>
+                            <label><input type="checkbox" name="Apple Fiber" class="addon mb-3" data-price="2.75"> Apple
+                                Fiber <span>$2.75</span> </label><br>
+                            <label><input type="checkbox" name="plain Fiber" class="addon mb-3" data-price="2.75"> Plain
+                                Fiber <span>$2.75</span></label><br>
+                            <label><input type="checkbox" name="Tropical Twist Fiber" class="addon mb-3"
+                                    data-price="2.75"> Tropical Twist Fiber <span>$2.75</span> </label><br>
+                            <label><input type="checkbox" name="Immunity Booster" class="addon mb-3" data-price="2.75">
+                                Immunity Booster <span>$2.75</span></label><br>
+                            <label><input type="checkbox" name="Probiotic" class="addon mb-3" data-price="2.00">
+                                Probiotic <span>$2.00</span></label><br>
+                        </div>
+
+
+                </div>
+
+                <div class="productSummery mt-4" style="display: flex; justify-content: space-between;">
+                    <div class="details">
+                        <label for="comments">Comments:</label>
+                        <textarea name="comments" id=""></textarea>
+                    </div>
+                    <div class="prices text-end">
+                        <h3>Subtotal:</h3>
+                        <p>$<span id="subTotal">11.00</span></p>
+                        <h3>Add-ons Total: </h3>
+                        <p>+ $<span id="addonsTotal">0.00</span></p>
+                        <h3>Total:</h3>
+                        <p>$<span id="total">11.00</span></p>
+                    </div>
+                </div>
+                <div class="addToCart">
+                    <button type="button" class="btn addToCartBtn" id="addToCart">ADD TO CART</button>
+                    <input type="number" id="quantity" value="1" min="1">
+
+                </div>
+            </form>
+            </div>
+
+
+        </div>
+</div>
+
+        <!-- Add this modal HTML at the end of your existing HTML content -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <p>We've sent an order confirmation email to <span id="customerEmail">your@email.com</span>. Please check your inbox for details.</p>
+
+            </div>
+        </div>
+
+
+
+        <div class="container my-5 customCheckout" id="container2" style="display: none;">
+            <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Billing details</h1>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="firstName">First name <span>*</span></label>
+                                <input type="text" name="firstName" class="w-100" id="firstName" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" name="lastName" class="w-100" id="lastName" required>
+                            </div>
+                    </div>
+                    <div class="d-flex flex-column ">
+                        <label for="companyName">Company name (optional)</label>
+                        <input type="text" name="companyName" id="companyName">
+                    </div>
+
+                    <div class="">
+                        <label for="contryRegion">Contry / Region <span>*</span></label>
+                        <h5>United States (US)</h3>
+                    </div>
+                    <div class="d-flex flex-column ">
+                        <label for="streetAddress">Street address <span>*</span></label>
+                        <input type="text" name="houseNumAndStreetName" id="houseNumAndStreetName" placeholder="House number and street name" required>
+                        <input type="text" name="ApartmentSuiteUnitETC" id="ApartmentSuiteUnitETC" placeholder="Apartment, suite, unit, etc. (optional)">
+                    </div>
+                    <div class="d-flex flex-column ">
+                        <label for="townCity">Town / City <span>*</span></label>
+                        <input type="text" name="townCity" id="townCity" required>
+                    </div>
+
+                    <div class="d-flex flex-column ">
+                        <label for="state">State <span>*</span></label>
+                        <select name="state" id="state" required>
+                            <option value="">Select an option...</option>
+                            <option value="Alabama">Alabama</option>
+                            <option value="Alaska">Alaska</option>
+                            <option value="Arizona">Arizona</option>
+                            <option value="Arkansas">Arkansas</option>
+                            <option value="California">California</option>
+                            <option value="Colorado">Colorado</option>
+                            <option value="Connecticut">Connecticut</option>
+                            <option value="Delaware">Delaware</option>
+                            <option value="District of Columbia">District of Columbia</option>
+                            <option value="Florida">Florida</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Hawaii">Hawaii</option>
+                            <option value="Idaho">Idaho</option>
+                            <option value="lllinois">lllinois</option>
+                            <option value="Indiana">Indiana</option>
+                            <option value="lowa">lowa</option>
+                            <option value="Kansas">Kansas</option>
+                            <option value="Kentucky">Kentucky</option>
+                            <option value="Louisiana">Louisiana</option>
+                            <option value="Maine">Maine</option>
+                            <option value="Maryland">Maryland</option>
+                            <option value="Massachusetts">Massachusetts</option>
+                            <option value="Michigan">Michigan</option>
+                            <option value="Minnesota">Minnesota</option>
+                            <option value="Mississippi">Mississippi</option>
+                            <option value="Missouri">Missouri</option>
+                            <option value="Montana">Montana</option>
+                            <option value="Nebraska">Nebraska</option>
+                            <option value="Nevada">Nevada</option>
+                            <option value="New Hampshire">New Hampshire</option>
+                            <option value="New Jersey">New Jersey</option>
+                            <option value="New Mexico">New Mexico</option>
+                            <option value="New York">New York</option>
+                            <option value="North Carolina">North Carolina</option>
+                            <option value="North Dakota">North Dakota</option>
+                            <option value="Ohio">Ohio</option>
+                            <option value="Oklahoma">Oklahoma</option>
+                            <option value="Oregon">Oregon</option>
+                            <option value="Pennsylvania">Pennsylvania</option>
+                            <option value="Rhode Island">Rhode Island</option>
+                            <option value="South Carolina">South Carolina</option>
+                            <option value="South Dakota">South Dakota</option>
+                            <option value="Tennessee">Tennessee</option>
+                            <option value="Texas">Texas</option>
+                            <option value="Utah">Utah</option>
+                            <option value="Vermont">Vermont</option>
+                            <option value="Virginia">Virginia</option>
+                            <option value="Washington">Washington</option>
+                            <option value="West Virginia">West Virginia</option>
+                            <option value="Wisconsin">Wisconsin</option>
+                            <option value="Wyoming">Wyoming</option>
+                            <option value="Armed Forces (AA)">Armed Forces (AA)</option>
+                            <option value="Armed Forces (AE)">Armed Forces (AE)</option>
+                            <option value="Armed Forces (AP)">Armed Forces (AP)</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex flex-column ">
+                        <label for="zipCode">Zip Code <span>*</span></label>
+                        <input type="text" name="zipCode" id="zipCode" required>
+                    </div>
+
+                    <div class="d-flex flex-column ">
+                        <label for="phone">Phone <span>*</span></label>
+                        <input type="text" name="phone" id="phone" required>
+                    </div>
+
+                    <div class="d-flex flex-column ">
+                        <label for="emailAddress">Email Address <span>*</span></label>
+                        <input type="text" name="emailAddress" id="emailAddress" required>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" name="orderUpdates" id="orderUpdates">
+                        <span> Please send me order updates via text message (optional)</span>
+                    </div>
+
+
+                </div>
+                <div class="col-md-6">
+                    <h1>Additional information</h1>
+                    <div class="d-flex flex-column">
+                        <label for="orderNotes">Order notes (optional)</label>
+                        <textarea placeholder="Notes about your order, e.g. special notes for delivery." name="" class="w-100" id="orderNotes"></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- <button id="submitForm" type="button" class="btn btn-primary">Submit</button> -->
+        </form>
+
+        <div class="row yourOrder">
+            <div class="col">
+                <table class="table table-bordered" >
+                    <thead>
+                      <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style="vertical-align: middle">
+                        <td>
+                            <p>REFRESHME COMBO x <span id="productQuantityPlaceholder"><b>1</b></span></p>
+                            <p id="refreshMePlaceholder"></p>
+                            <p id="aloeShotPlaceholder"></p>
+                            <p id="energyTeaPlaceholder"></p>
+                            <p id="teaTempPlaceholder"></p>
+                            <p id="healtyMilkShakePlaceholder"></p>
+                            <p id="proteinPlaceholder"></p>
+                            <p id="addonsPlaceholder"></p>
+                        </td>
+                        <td id="mainTotalPlaceholder">$11.00</td>
+                      </tr>
+                      <tr>
+                        <th>Subtotal</th>
+                        <th id="subtotalPlaceholder">$11.00</th>
+                      </tr>
+                      <tr>
+                        <th>Handling Fee</th>
+                        <th id="handlingFeeplaceholder">$0.34</th>
+                      </tr>
+                      <tr>
+                        <th>Total</th>
+                        <th id="totalPlaceholder">$11.00</th>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <button class="btn proceedToCheckout" onclick="proceedToCheckout(event)">Proceed to Checkout</button>
+            </div>
+
+        </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+
+
+            <script>
+
+document.getElementById('addToCart').addEventListener('click', ()=>{
+    // Perform your custom validation logic here
+    const refreshMeValue = document.getElementById("refreshMe").value;
+        const aloeShotValue = document.getElementById("aloeShot").value;
+        const energyTeaValue = document.getElementById("energyTea").value;
+        const teaTemperatureValue = document.getElementById("teaTemperature").value;
+        const mealShakeValue = document.getElementById("mealShake").value;
+        const proteinValue = document.getElementById("protein").value;
+
+        // Check if any of the required fields are empty or have the default value
+        if (
+            refreshMeValue === "" || refreshMeValue === "Choose an option" ||
+            aloeShotValue === "" || aloeShotValue === "Choose an option" ||
+            energyTeaValue === "" || energyTeaValue === "Choose an option" ||
+            teaTemperatureValue === "" || teaTemperatureValue === "Choose an option" ||
+            mealShakeValue === "" || mealShakeValue === "Choose an option" ||
+            proteinValue === "" || proteinValue === "Choose an option"
+        ) {
+            alert("Please fill out all required fields.");
+        } else {
+            const container1 = document.getElementById('container1');
+  container1.style.display = 'none';
+  const container2 = document.getElementById('container2');
+  container2.style.display = 'block';
+        }
+
+})
+
+
+
+function zoom(e) {
+	var zoomer = e.currentTarget;
+	e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
+	e.offsetY ? offsetY = e.offsetY : offsetX = e.touches[0].pageX
+	x = offsetX / zoomer.offsetWidth * 100
+	y = offsetY / zoomer.offsetHeight * 100
+	zoomer.style.backgroundPosition = x + '% ' + y + '%';
+}
+
+// Function to update totals and cart data
+function updateTotals() {
+const subTotalElement = document.getElementById('subTotal');
+const addonsTotalElement = document.getElementById('addonsTotal');
+const totalElement = document.getElementById('total');
+
+// Initial values
+let subTotal = 11.00;
+let addonsTotal = 0.00;
+let total = 0.00; // Initialize total
+
+
+const aloeShotSelect = document.getElementById("aloeShot");
+const energyTeaSelect = document.getElementById("energyTea");
+const teaTempSelect = document.getElementById("teaTemperature");
+const mealShakeSelect = document.getElementById("mealShake");
+const proteinSelect = document.getElementById('protein');
+const quantityInput = document.getElementById("quantity");
+const refreshMe = document.getElementById("refreshMe");
+
+const aloeShotValue = aloeShotSelect.value;
+const energyTeaValue = energyTeaSelect.value;
+const teaTempValue = teaTempSelect.value;
+const mealShakeValue = mealShakeSelect.value;
+const proteinSelectValue = proteinSelect.value;
+const quantity = parseInt(quantityInput.value);
+const refreshMeValue = refreshMe.value;
+
+if (proteinSelectValue === "Yes ($1.50)") {
+// Calculate the addon price based on quantity
+const addonPricePerQuantity = 1.50 * quantity;
+addonsTotal += addonPricePerQuantity;
+}
+
+const selectedAddons = [];
+const addonCheckboxes = document.querySelectorAll(".addon:checked");
+addonCheckboxes.forEach((checkbox) => {
+const addonName = checkbox.name;
+const addonPrice = parseFloat(checkbox.getAttribute("data-price"));
+const addonQuantity = quantity;
+const addonTotal = addonPrice * addonQuantity;
+
+selectedAddons.push({
+	name: addonName,
+	price: addonPrice.toFixed(2),
+	quantity: addonQuantity,
+	total: addonTotal.toFixed(2),
+});
+
+addonsTotal += addonTotal;
+});
+
+addonsTotalElement.textContent = addonsTotal.toFixed(2);
+subTotal = 11 * quantity;
+subTotalElement.textContent = subTotal.toFixed(2);
+total = subTotal + addonsTotal;
+totalElement.textContent = total.toFixed(2);
+
+
+const subtotalPlaceholder = document.getElementById('subtotalPlaceholder');
+// const handlingFeeplaceholder = document.getElementById('handlingFeeplaceholder');
+const totalPlaceholder = document.getElementById('totalPlaceholder');
+const mainTotalPlaceholder = document.getElementById('mainTotalPlaceholder');
+mainTotalPlaceholder.textContent = `$${subTotal.toFixed(2)}`;
+subtotalPlaceholder.textContent = `$${subTotal.toFixed(2)}`;
+// handlingFeeplaceholder.textContent = `$${addonsTotal.toFixed(2)}`;
+total = subTotal + addonsTotal;
+totalPlaceholder.textContent = `$${total.toFixed(2)}`;
+
+
+const cartData = {
+productName: "REFRESHME COMBO",
+refreshMe : refreshMeValue,
+total : 11.00,
+aloeShot: aloeShotValue,
+energyTea: energyTeaValue,
+teaTemperature: teaTempValue,
+mealShake: mealShakeValue,
+protein: proteinSelectValue,
+quantity: quantity,
+subTotal: subTotal.toFixed(2),
+addonsTotal: addonsTotal.toFixed(2),
+total: total.toFixed(2),
+addons: selectedAddons,
+comments : "",
+};
+
+return cartData;
+}
+
+
+// Function to show the modal
+function openModal() {
+var modal = document.getElementById('myModal');
+modal.style.display = 'block';
+}
+
+// Function to close the modal
+function closeModal() {
+var modal = document.getElementById('myModal');
+modal.style.display = 'none';
+}
+
+
+// Event listener to close the modal when clicking on the close button
+var closeBtn = document.getElementsByClassName('close')[0];
+closeBtn.addEventListener('click', closeModal);
+
+// Event listener to close the modal when clicking outside the modal content
+window.addEventListener('click', function (event) {
+var modal = document.getElementById('myModal');
+if (event.target === modal) {
+closeModal();
+}
+});
+
+// Function to send data to the server
+function sendDataToServer(data) {
+
+    const commentsTextarea = document.querySelector('textarea[name="comments"]');
+    const comments = commentsTextarea.value;
+    data.comments = comments;
+
+
+    // address
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const companyName = document.getElementById('companyName').value;
+    const houseNumAndStreetName = document.getElementById('houseNumAndStreetName').value;
+    const apartmentSuiteUnitETC = document.getElementById('ApartmentSuiteUnitETC').value;
+    const townCity = document.getElementById('townCity').value;
+    const state = document.getElementById('state').value;
+    const zipCode = document.getElementById('zipCode').value;
+    const phone = document.getElementById('phone').value;
+    const emailAddress = document.getElementById('emailAddress').value;
+    const orderNotes = document.getElementById('orderNotes').value;
+    const orderUpdatesCheckbox = document.getElementById('orderUpdates');
+    const orderUpdatesValue = orderUpdatesCheckbox.checked;
+
+    document.getElementById("customerEmail").textContent = emailAddress;
+
+    if(firstName === "" || houseNumAndStreetName === "" || townCity === "" || state === "" || zipCode === "" || phone === "" || emailAddress === "" ){
+        alert("Please fill out all required fields.");
+    }else{
+        data.firstName = firstName
+        data.lastName = lastName;
+        data.companyName = companyName;
+        data.houseNumAndStreetName = houseNumAndStreetName;
+        data.apartmentSuiteUnitETC = apartmentSuiteUnitETC;
+        data.townCity = townCity;
+        data.state = state;
+        data.zipCode = zipCode;
+        data.phone = phone;
+        data.emailAddress = emailAddress;
+        data.orderNotes = orderNotes;
+        data.orderUpdatesValue = orderUpdatesValue;
+
+
+    fetch('http://localhost:3000/webhook', {
+    method: 'POST',
+    body: JSON.stringify(data),
+    // headers: {
+    //       "Content-Type": "application/json",
+    //       // 'Content-Type': 'application/x-www-form-urlencoded',
+    //     },
+    })
+    .then(response => response.json())
+    .then(responseData => {
+    // If successful, show the success modal
+    openModal();
+    })
+    .catch(error => {
+    console.error('Error sending data to server:', error);
+    });
+    }
+
+
+}
+
+// Add event listeners to selection elements and checkboxes
+const selectionElements = document.querySelectorAll("select, input[type='checkbox'], input[type='radio']");
+selectionElements.forEach((element) => {
+element.addEventListener("change", updateTotals);
+});
+
+// Add to cart functionality
+const quantityInput = document.getElementById("quantity");
+
+quantityInput.addEventListener("input", () => {
+const productQuantity = document.getElementById('productQuantityPlaceholder');
+productQuantity.innerHTML = "<b>"+ parseInt(quantityInput.value) + "</b>";
+const quantity = parseInt(quantityInput.value);
+if (isNaN(quantity)) {
+document.getElementById("subTotal").textContent = "0.00";
+} else {
+const subTotal = 11 * quantity;
+document.getElementById("subTotal").textContent = subTotal.toFixed(2);
+}
+updateTotals();
+});
+
+document.getElementById("subTotal").textContent = "11.00";
+
+function proceedToCheckout(e) {
+    e.preventDefault();
+    const cartData = updateTotals();
+    sendDataToServer(cartData);
+}
+
+
+const aloeShotSelect = document.getElementById("aloeShot");
+const energyTeaSelect = document.getElementById("energyTea");
+const teaTempSelect = document.getElementById("teaTemperature");
+const mealShakeSelect = document.getElementById("mealShake");
+const proteinSelect = document.getElementById('protein');
+const refreshMe = document.getElementById("refreshMe");
+
+
+// your order table
+refreshMe.addEventListener('input', updateYourOrderTable);
+aloeShotSelect.addEventListener('input', updateYourOrderTable);
+energyTeaSelect.addEventListener('input', updateYourOrderTable);
+teaTempSelect.addEventListener('input', updateYourOrderTable);
+mealShakeSelect.addEventListener('input', updateYourOrderTable);
+proteinSelect.addEventListener('input', updateYourOrderTable);
+const addonCheckboxes = document.querySelectorAll('.addon');
+
+
+addonCheckboxes.forEach((checkbox)=>{
+    checkbox.addEventListener('change', updateYourOrderTable)
+})
+
+function updateYourOrderTable(){
+    const refreshMeValue = refreshMe.value;
+    const aloeShotValue = aloeShotSelect.value;
+    const energyTeaValue = energyTeaSelect.value;
+    const teaTemperatureValue = teaTempSelect.value;
+    const mealShakeValue =  mealShakeSelect.value;
+    const proteinValue = proteinSelect.value;
+    document.getElementById('refreshMePlaceholder').textContent = `ReFreshMe: ${refreshMeValue}`;
+    document.getElementById('aloeShotPlaceholder').textContent = `Aloe Shot: ${aloeShotValue} `;
+    document.getElementById('energyTeaPlaceholder').textContent = `Energy Tea: ${energyTeaValue} `;
+    document.getElementById('teaTempPlaceholder').textContent = `Do You Want Your Tea Hot or Cold? ${teaTemperatureValue} `;
+    document.getElementById('healtyMilkShakePlaceholder').textContent = `Healthy Meal Shake: ${mealShakeValue} `;
+    document.getElementById('proteinPlaceholder').textContent = ` Want to Up Your Protein? ${proteinValue} `;
+
+    const selectedAddons = [];
+    addonCheckboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            const addonName = checkbox.name;
+            const addonPrice = parseFloat(checkbox.getAttribute("data-price"));
+            selectedAddons.push(`${addonName} ($${addonPrice.toFixed(2)})`);
+        }
+    });
+    const addonsPlaceholder = document.getElementById('addonsPlaceholder');
+    addonsPlaceholder.textContent = selectedAddons.join(', ');
+}
+
+    </script>
+
+
+</body>
+
+</html>
